@@ -1,6 +1,7 @@
 "use strict";
 
 let score = 20;
+const again = document.querySelector(".again");
 const message = document.querySelector(".message");
 const scoreNumber = document.querySelector(".score");
 let number = document.querySelector(".number");
@@ -8,7 +9,8 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let guess = document.querySelector(".guess");
 const check = document.querySelector(".check");
 const body = document.querySelector("body");
-
+let highScoreNumber = document.querySelector(".highscore");
+let highScore = 0;
 
 number.textContent = secretNumber;
 
@@ -25,6 +27,11 @@ check.addEventListener("click", function () {
     number.textContent = secretNumber;
     number.style.width = "30rem";
     body.style.backgroundColor = "#60b347";
+
+    if (score > highScore) {
+      highScore = score;
+      highScoreNumber.textContent = highScore;
+    }
   } else if (guess > secretNumber) {
     message.textContent = "📈 Too High!";
     score--;
@@ -36,34 +43,16 @@ check.addEventListener("click", function () {
   }
 });
 
+// DRY => DO NOT REPEAT YOURSELF
 
-let score = 20;
-let secretNumber = Math.trunc(Math.random() * 20) + 1;
-document.querySelector(".btn.again").addEventListener('click', function () {});
-  
-score = 20;
-secretNumber = Math.trunc(Math.random() * 20) + 1;
+again.addEventListener("click", function () {
+  score = 20;
+  let guess = document.querySelector(".guess");
+  guess.value = "";
+  message.textContent = "Start guessing...";
+  scoreNumber.textContent = score;
+  number.textContent = "?";
+  body.style.backgroundColor = "#222";
+  number.style.width = "15rem";
+});
 
-document.querySelector(".message").textContent = "Start guessing...";
-document.querySelector(".score").textContent = score;
-document.querySelector(".number").textContent = "?";
-document.querySelector(".guess").value = "";
-
-document.querySelector("body").style.backgroundColor = "#222";
-document.querySelector(".number").style.width = "15rem"; 
-
-
-  
-
-
-// reset implementeation
-
-
-// / Coding Challenge #1
-
-// Implement a game reset functionality, so that the player can make a new guess! Here is how:
-
-// 1. Select the element with the 'again' class and attach a click event handler
-// 2. In the handler function, restore initial values of the score and secretNumber variables
-// 3. Restore the initial conditions of the message, number, score and guess input field
-// 4. Also restore the original background color (#222) and number width (15rem)
